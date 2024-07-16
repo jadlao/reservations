@@ -20,7 +20,7 @@ class CompanyUserPolicy
     /**
      * Determine whether the user can view any models.
      */
-    public function viewAny(User $user): bool
+    public function viewAny(User $user, Company $company): bool
     {
         return $user->role_id === Role::COMPANY_OWNER->value && $user->company_id === $company->id;
     }
@@ -36,7 +36,7 @@ class CompanyUserPolicy
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): bool
+    public function create(User $user, Company $company): bool
     {
         return $user->role_id === Role::COMPANY_OWNER->value && $user->company_id === $company->id;
     }
