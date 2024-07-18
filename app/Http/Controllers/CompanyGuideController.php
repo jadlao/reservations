@@ -9,6 +9,10 @@ use App\Models\Company;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\StoreGuideRequest;
 use App\Http\Requests\UpdateGuideRequest;
+use App\Models\UserInvitation;
+use Illuminate\Support\Str;
+use App\Mail\RegistrationInvite;
+use Illuminate\Support\Facades\Mail;
 
 class CompanyGuideController extends Controller
 {
@@ -32,12 +36,21 @@ class CompanyGuideController extends Controller
     {
         Gate::authorize('create', $company);
  
-        $company->users()->create([
-            'name' => $request->input('name'),
+        // $company->users()->create([
+        //     'name' => $request->input('name'),
+        //     'email' => $request->input('email'),
+        //     'password' => bcrypt($request->input('password')),
+        //     'role_id' => Role::GUIDE->value,
+        // ]);
+
+        $invitation = UserInvitation::create([
             'email' => $request->input('email'),
-            'password' => bcrypt($request->input('password')),
+            'token' => Str::uuid(),
+            'company_id' => $company->id,
             'role_id' => Role::GUIDE->value,
         ]);
+ 
+        Mail::to($request->input('email'))->send(new RegistrationInvite($invitation));
  
         return to_route('companies.guides.index', $company);
     }
