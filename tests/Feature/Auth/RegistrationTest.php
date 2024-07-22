@@ -31,7 +31,7 @@ class RegistrationTest extends TestCase
         ]);
 
         $this->assertAuthenticated();
-        $response->assertRedirect(route('dashboard', absolute: false));
+        $response->assertRedirect(route('home', absolute: false)); 
     }
 
     public function test_user_can_register_with_token_for_company_owner_role()
@@ -62,9 +62,8 @@ class RegistrationTest extends TestCase
         ]);
  
         $this->assertAuthenticated();
- 
-        $response->assertRedirect(route('dashboard', absolute: false));
-    }
+        $response->assertRedirect(route('home', absolute: false)); 
+     }
  
     public function test_user_can_register_with_token_for_guide_role()
     {
@@ -95,6 +94,6 @@ class RegistrationTest extends TestCase
  
         $this->assertAuthenticated();
  
-        $response->assertRedirect(route('dashboard', absolute: false));
+    $response->assertRedirect(route('home', absolute: false)); 
     }
 }

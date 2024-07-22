@@ -34,7 +34,7 @@ class CompanyUserTest extends TestCase
         $response = $this->actingAs($user)->post(route('companies.users.store', $company->id), [
             'name' => 'test user',
             'email' => 'test@test.com',
-            'password' => 'password',
+            // 'password' => 'password',
         ]);
  
         $response->assertRedirect(route('companies.users.index', $company->id));
