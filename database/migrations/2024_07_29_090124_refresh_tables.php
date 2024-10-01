@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users,posts', function (Blueprint $table) {
-            //
+        Schema::table('users', function (Blueprint $table) {
+            // Add modifications for users table
+        });
+
+        Schema::table('posts', function (Blueprint $table) {
+            // Add modifications for posts table
         });
     }
 
